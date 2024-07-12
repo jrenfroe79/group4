@@ -1,12 +1,13 @@
-const express = require(`express`);
-const morgan = require(`morgan`);
-const bodyParser = require(`body-parser`);
-const mongoose = require(`mongoose`);
+const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
+app.use(express.static('public')); // Add this line to serve static files
 
 const dbURI = "mongodb+srv://group4:jjrgroup4@group4.jbaccmx.mongodb.net/?retryWrites=true&w=majority&appName=group4"
 
