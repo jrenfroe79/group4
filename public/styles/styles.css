@@ -1,17 +1,15 @@
 .mainContentWrapper {
     width: 90%;
-
     margin-left: auto;
     margin-right: auto;
 }
 
 .headerImage {
     background-image: url(../images/headerImage_college_books.jpg);
-
     background-repeat: no-repeat;
     width: auto;
     height: 410px;
-    padding-top: -200px;
+    margin-top: -200px; /* Consider using margin-top instead of padding-top */
 }
 
 .headerWrapper {
@@ -23,23 +21,16 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-
     background-color: lightskyblue;
 }
 
-
-.navBarList li{
+.navBarList li {
     list-style: none;
     display: inline-block;
-
-    justify-content: center;
-
     width: 200px;
 }
 
 .navBarList a {
     text-decoration: none;
-    /* background-color: lightcyan; */
-
     padding: 17px;
 }
