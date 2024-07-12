@@ -1,44 +1,32 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const path = require('path');
 
+// Create the Express app
 const app = express();
 
-const dbURI = "mongodb+srv://group4:jjrgroup4@group4.jbaccmx.mongodb.net/?retryWrites=true&w=majority&appName=group4";
+// Middleware for serving static files under '/styles' route
+app.use('/styles', express.static(path.join(__dirname, 'public')));
 
-mongoose.connect(dbURI)
-  .then(result => {
-    const server = app.listen(0, () => {
-      const PORT = server.address().port;
-      console.log(`Server is running on http://localhost:${PORT}`);
-    });
-  })
-  .catch(err => console.log(err));
+// Set the static directory for serving files
+app.use(express.static(path.join(__dirname, 'public')));
 
-const Course = require('./models/course');
-const Teacher = require('./models/teacher');
-
-// Middleware & static files
-app.use(express.static('public'));
+// Middleware for logging
 app.use(morgan('dev'));
-app.use((req, res, next) => {
-  res.locals.path = req.path;
-  next();
+
+// Handle requests for favicon.ico
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end();
 });
 
-// Define routes for courses and teachers
+// Define routes
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.get('/courses', (req, res) => {
-  Course.find({}, (err, courses) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.json(courses);
-    }
-  });
+// Start the server on a dynamically assigned port
+const server = app.listen(0, () => {
+  const port = server.address().port;
+  console.log(`Server is running on http://localhost:${port}`);
 });
-
-// Add routes for creating, updating, and deleting courses and teachers
