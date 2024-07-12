@@ -1,13 +1,18 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const express = require(`express`);
+const morgan = require(`morgan`);
+const bodyParser = require(`body-parser`);
+const mongoose = require(`mongoose`);
 
 const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/group4', { useNewUrlParser: true, useUnifiedTopology: true });
+const dbURI = "mongodb+srv://group4:jjrgroup4@group4.jbaccmx.mongodb.net/?retryWrites=true&w=majority&appName=group4"
+
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(result => app.listen(3000))
+  .catch(err => console.log(err));
 
 const Course = require('./models/course');
 const Teacher = require('./models/teacher');
