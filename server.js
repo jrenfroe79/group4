@@ -6,8 +6,14 @@ const path = require(`path`);
 // Create the Express app
 const app = express();
 
+// Middleware for serving CSS files with the correct MIME type
+app.get('/styles/styles.css', (req, res) => {
+  res.setHeader('Content-Type', 'text/css');
+  res.sendFile(path.join(__dirname, 'public', 'styles', 'styles.css'));
+});
+
 // Middleware for serving static files under '/styles' route
-app.use(`/styles`, express.static(path.join(__dirname, `public`)));
+app.use('/styles', express.static(path.join(__dirname, 'public', 'styles')));
 
 // Set the static directory for serving files
 app.use(express.static(path.join(__dirname, `public`)));
@@ -30,4 +36,3 @@ const server = app.listen(0, () => {
   const port = server.address().port;
   console.log(`Server is running on http://localhost:${port}`);
 });
-
